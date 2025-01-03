@@ -7,7 +7,6 @@ from PIL import Image
 import numpy as np
 from model import OrganClassifierModel
 import traceback
-import os
 
 class OrganClassifierApp(QMainWindow):
     def __init__(self, model_path, weights_path, dataset_path):
@@ -17,11 +16,6 @@ class OrganClassifierApp(QMainWindow):
         # Call the model with dummy input to create variables
         dummy_input = np.zeros((1, 224, 224, 3), dtype=np.float32)
         self.model(dummy_input)
-
-        # Check if weights file exists
-        if not os.path.exists(weights_path):
-            raise FileNotFoundError(f"Unable to find weights file at {weights_path}")
-
         # Load the best weights
         self.model.load_weights(weights_path)
         self.dataset_path = dataset_path
@@ -138,7 +132,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Define paths
-    model_path = "D:/besooo/SBME/model/model/src/savedmodels/model/saved_model.pb"
+    model_path = "D:/besooo/SBME/model/savedmodels/model/saved_model.pb"
     weights_path = "D:/besooo/SBME/model/model/src/savedmodels/checkpoints/best_weights.h5"
     dataset_path = "D:/besooo/SBME/model/Dataset"
 
